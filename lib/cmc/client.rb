@@ -3,9 +3,9 @@ require 'faraday_middleware'
 
 module Cmc
   class Client
-    BASE_URL = 'sandbox-api.coinmarketcap.com'
+    BASE_URL = 'sandbox-api.coinmarketcap.com/v1'
 
-    attr_reader :api_key, :adapter, :connection
+    attr_reader :api_key, :adapter
 
     def initialize(api_key:, adapter: Faraday.default_adapter)
       @api_key = api_key
@@ -21,8 +21,13 @@ module Cmc
       end
     end
 
+    def call
+      client.connection.get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {},
+                            { 'X-CMC_PRO_API_KEY' => client.api_key })
+    end
+
     def inspect
-      `#<Cmc::Client>`
+      '#<Cmc::Client>'
     end
   end
 end

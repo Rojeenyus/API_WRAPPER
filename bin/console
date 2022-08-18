@@ -11,7 +11,10 @@ require 'cmc'
 # require "pry"
 # Pry.start
 
-client = Cmc::CLient.new(api_key: ENV['CMC_API_KEY'])
+def client
+  #   Cmc::Client.new(api_key: ENV['CMC_API_KEY'])
+  Cmc::Client.new(api_key: 'bc95c989-8736-4cb6-8651-44a2f8e7bd67')
+end
 
 require 'irb'
 IRB.start(__FILE__)
